@@ -6,7 +6,9 @@
     <div class="header-bottom">
       <div>
         <slot name="add" v-if="isShowAddBtn">
-          <el-button type="primary" size="small" @click="addBtn" :icon="Plus">新增</el-button>
+          <el-button type="primary" size="small" @click="addBtn" :icon="Plus"
+            >新增</el-button
+          >
         </slot>
         <slot name="delete" v-if="isShowDeleteBtn">
           <el-button
@@ -19,7 +21,7 @@
           >
         </slot>
       </div>
-      
+
       <slot name="search" v-if="isShowSearchBtn">
         <div style="margin-left: auto">
           <el-input
@@ -29,13 +31,18 @@
             :placeholder="searchBtnPlaceholder"
             style="width: 200px"
           />
-          <el-button type="primary" size="small" style="margin-left: 1rem" @click="searchBtn">
+          <el-button
+            type="primary"
+            size="small"
+            style="margin-left: 1rem"
+            @click="searchBtn"
+          >
             搜索
           </el-button>
         </div>
       </slot>
     </div>
-
+    <slot name="middle"></slot>
     <el-table
       style="width: 100%"
       :data="tableData"
@@ -55,7 +62,10 @@
         </template>
       </el-table-column>
       <template v-for="propItem in propList" :key="propItem.label">
-        <el-table-column v-bind="propItem" :align="propItem.align ? propItem.align : 'center'">
+        <el-table-column
+          v-bind="propItem"
+          :align="propItem.align ? propItem.align : 'center'"
+        >
           <template #default="scope">
             <slot :name="propItem.prop" :row="scope.row">
               {{ scope.row[propItem.prop] }}
@@ -89,91 +99,98 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import { Plus, Delete, Search } from '@element-plus/icons-vue'
+import { defineComponent, ref } from "vue";
+import { Plus, Delete, Search } from "@element-plus/icons-vue";
 export default defineComponent({
   props: {
     tableData: {
       type: Array,
-      default: () => []
+      default: () => [],
       // required: true
     },
     propList: {
       type: Object,
-      required: true
+      required: true,
     },
     isShowSelection: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isShowIndex: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isExpand: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isShowAddBtn: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isShowDeleteBtn: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isShowSearchBtn: {
       type: Boolean,
-      default: false
+      default: false,
     },
     searchBtnPlaceholder: {
       type: String,
-      default: ''
+      default: "",
     },
     page: {
       type: Object,
-      default: () => ({ currentPage: 2, size: 10 })
+      default: () => ({ currentPage: 2, size: 10 }),
     },
     pageCount: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
-  emits: ['update:page', 'add-btn', 'selection', 'del-btn', 'search-btn', 'expand-change'],
+  emits: [
+    "update:page",
+    "add-btn",
+    "selection",
+    "del-btn",
+    "search-btn",
+    "expand-change",
+  ],
   setup(props, { emit }) {
-    const keywords = ref('')
+    const keywords = ref("");
     const handleSizeChange = (size) => {
-      emit('update:page', { ...props.page, size })
-    }
+      emit("update:page", { ...props.page, size });
+    };
 
     const handleCurrentChange = (currentPage) => {
-      emit('update:page', { ...props.page, currentPage })
-    }
+      emit("update:page", { ...props.page, currentPage });
+    };
 
     const addBtn = () => {
-      emit('add-btn')
-    }
+      emit("add-btn");
+    };
 
     const delBtn = () => {
-      emit('del-btn')
-    }
+      emit("del-btn");
+    };
 
-    const handleExpand = (row, expandedRows ) => {
-      emit('expand-change', { ...row })
-    }
+    const handleExpand = (row, expandedRows) => {
+      emit("expand-change", { ...row });
+    };
 
-    const select = ref([])
+    const select = ref([]);
 
     const handleSelectionChange = (selection) => {
       // selection 为当前所选中的数据,数组类型
-      select.value = selection
+      select.value = selection;
 
-      emit('selection', selection)
-    }
+      emit("selection", selection);
+    };
 
     const searchBtn = () => {
-      emit('search-btn', keywords.value)
-    }
+      emit("search-btn", keywords.value);
+    };
 
     return {
       keywords,
@@ -187,10 +204,10 @@ export default defineComponent({
       handleExpand,
       Plus,
       Search,
-      Delete
-    }
-  }
-})
+      Delete,
+    };
+  },
+});
 </script>
 
 <style scoped>
