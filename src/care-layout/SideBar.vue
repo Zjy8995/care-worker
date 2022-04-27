@@ -20,7 +20,7 @@
       </el-icon>
       <span>管理老人</span>
     </el-menu-item>
-    <el-sub-menu index="1-4">
+    <el-sub-menu index="/care/day-task">
       <template #title>
         <el-icon>
           <List />
@@ -33,25 +33,33 @@
         </el-icon>
         <span>新增任务</span>
       </el-menu-item>
-      <el-menu-item index="/care/day-task-every">
+      <el-menu-item index="/care/day-task">
         <el-icon>
           <List />
         </el-icon>
-        <span>日常任务</span>
-      </el-menu-item>
-      <el-menu-item index="/care/day-task-spec">
-        <el-icon>
-          <List />
-        </el-icon>
-        <span>专属任务</span>
+        <span>查看任务</span>
       </el-menu-item>
     </el-sub-menu>
-    <el-menu-item index="/care/leave">
-      <el-icon>
-        <Position />
-      </el-icon>
-      <span>请假</span>
-    </el-menu-item>
+    <el-sub-menu index="/care/leave">
+      <template #title>
+        <el-icon>
+          <List />
+        </el-icon>
+        <span>请假</span>
+      </template>
+      <el-menu-item index="/care/leave-add">
+        <el-icon>
+          <Position />
+        </el-icon>
+        <span>申请请假</span>
+      </el-menu-item>
+      <el-menu-item index="/care/leave-history">
+        <el-icon>
+          <Position />
+        </el-icon>
+        <span>历史请假</span>
+      </el-menu-item>
+    </el-sub-menu>
     <el-menu-item index="/care/setting">
       <el-icon>
         <Setting />

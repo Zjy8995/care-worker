@@ -23,11 +23,7 @@ const routes = [
         component: () => import("@/views/care-worker/manage/index.vue"),
       },
       {
-        path: "day-task-every",
-        component: () => import("@/views/care-worker/day-task/index.vue"),
-      },
-      {
-        path: "day-task-spec",
+        path: "day-task",
         component: () => import("@/views/care-worker/day-task/index.vue"),
       },
       {
@@ -35,8 +31,12 @@ const routes = [
         component: () => import("@/views/care-worker/day-task/update.vue"),
       },
       {
-        path: "leave",
+        path: "leave-add",
         component: () => import("@/views/care-worker/leave/index.vue"),
+      },
+      {
+        path: "leave-history",
+        component: () => import("@/views/care-worker/leave/history.vue"),
       },
       {
         path: "setting",

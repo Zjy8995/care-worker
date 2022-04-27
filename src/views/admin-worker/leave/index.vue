@@ -147,7 +147,6 @@ let handleChange = (select) => {
   select.forEach((item) => {
     selectedLeaving.value.push(item.id);
   });
-  console.log(selectedLeaving.value);
 };
 
 let isSelected = (row, index) => {
