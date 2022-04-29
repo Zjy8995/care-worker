@@ -1,6 +1,16 @@
 <template>
   <el-card class="day-task-update__card">
     <div class="day-task-update__card-title">任务信息</div>
+    <el-popover v-model="cronPopover">
+      <vueCron @change="onChangeCron" @close="cronPopover = false"></vueCron>
+      <el-input
+        slot="reference"
+        @click="cronPopover = true"
+        v-model="xxx"
+        placeholder="请输入定时策略"
+        size="small"
+      ></el-input>
+    </el-popover>
     <el-form :model="taskForm" label-width="120px">
       <el-row>
         <el-col :span="6">
@@ -67,10 +77,14 @@ import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { Plus } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
+
 import axios from "axios";
+
 const route = useRoute();
 const router = useRouter();
-
+let cronPopover = ref(false);
+let xxx = ref("");
+let onChangeCron = () => {};
 onMounted(() => {
   if (route.query.id) {
     initCareInfo();

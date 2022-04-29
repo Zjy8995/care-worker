@@ -1,9 +1,7 @@
 <template>
   <el-card class="home__card">
-        <div class="home__card-title">
-            首页
-        </div>
-    </el-card>
+    <div class="home__card-title">首页</div>
+  </el-card>
 </template>
 
 <script setup>
@@ -31,5 +29,4 @@ import { ref } from "vue";
   border-left: 3px solid #0081ff;
   margin-right: 20px;
 }
-
 </style>

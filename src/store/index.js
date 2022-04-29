@@ -1,35 +1,42 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
 
 export default createStore({
   state: {
     isCollapse: false,
+    curOlderId: "",
+    curOlderAvatar: "",
     userInfo: {
-      phone: '',
-      name: '',
-      role: ''
-    }
+      phone: "",
+      name: "",
+      role: "",
+    },
   },
-  getters: {
-  },
+  getters: {},
   mutations: {
-    changeCollapse (state) {
-      state.isCollapse = !state.isCollapse
+    changeCollapse(state) {
+      state.isCollapse = !state.isCollapse;
+    },
+
+    setCurOlderId(state, id) {
+      state.curOlderId = id;
+    },
+
+    setCurOlderAvatar(state, url) {
+      state.curOlderAvatar = url;
     },
 
     setUserInfo(state, user) {
-      state.userInfo = { ...user }
+      state.userInfo = { ...user };
     },
 
     removeUserInfo(state) {
       state.userInfo = {
-        phone: '',
-        name: '',
-        role: ''
-      }
-    }
+        phone: "",
+        name: "",
+        role: "",
+      };
+    },
   },
-  actions: {
-  },
-  modules: {
-  }
-})
+  actions: {},
+  modules: {},
+});

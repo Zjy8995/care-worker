@@ -1,19 +1,32 @@
-import { createApp } from 'vue'
-import ElementPlus from 'element-plus'
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import 'element-plus/dist/index.css'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import axios from 'axios'
+import { createApp } from "vue";
+import ElementPlus from "element-plus";
+import App from "./App.vue";
+import zhCn from "element-plus/es/locale/lang/zh-cn";
+import "element-plus/dist/index.css";
 
-axios.defaults.baseURL = 'http://121.5.70.94:8085/'
+import VueCron from "vue-cron";
 
-if (window.localStorage.getItem('user')) {
-    console.log(window.localStorage.getItem('user'));
-    store.commit('setUserInfo', JSON.parse(window.localStorage.getItem('user')))
+import router from "./router";
+import store from "./store";
+import axios from "axios";
+import "echarts";
+import ECharts from "vue-echarts";
+
+axios.defaults.baseURL = "http://121.5.70.94:8085/";
+
+if (window.localStorage.getItem("user")) {
+  store.commit("setUserInfo", JSON.parse(window.localStorage.getItem("user")));
 }
 
-createApp(App).use(store).use(router).use(ElementPlus, {
+if (window.localStorage.getItem("curOlderId")) {
+  store.commit("setCurOlderId", window.localStorage.getItem("curOlderId"));
+}
+
+createApp(App)
+  .use(store)
+  .use(router)
+  .use(ElementPlus, {
     locale: zhCn,
-  }).mount('#app')
+  })
+  .use(VueCron)
+  .mount("#app");

@@ -2,24 +2,46 @@
   <el-card class="nursing-manage__card">
     <div class="nursing-manage__card-title">护理项目</div>
     <div class="nursing-manage__card-ctx">
-      <el-tree
-        class="nursing-manage__card-ctx-tree"
-        :data="categoryTreeList"
-        :props="{
-          children: 'children',
-          label: 'name',
-        }"
-        @node-click="handleNodeClick"
-      />
+      <div>
+        <div class="nursing-manage__card-ctx-category">
+          <h5>护理项目类别</h5>
+          <div>
+            <el-button type="text" @click="handleAddCategory"
+              ><el-icon><Plus /></el-icon
+            ></el-button>
+            <el-button
+              type="text"
+              :disabled="curCategory.id === 0"
+              @click="handleEditCategory"
+              ><el-icon><Edit /></el-icon
+            ></el-button>
+            <el-popconfirm title="确定删除吗？" @confirm="handleDelCategory">
+              <template #reference>
+                <el-button type="text" :disabled="curCategory.id === 0"
+                  ><el-icon><Delete /></el-icon
+                ></el-button>
+              </template>
+            </el-popconfirm>
+          </div>
+        </div>
+        <el-tree
+          class="nursing-manage__card-ctx-tree"
+          :data="categoryTreeList"
+          :highlight-current="true"
+          :current-node-key="0"
+          node-key="id"
+          :props="{
+            children: 'children',
+            label: 'name',
+          }"
+          @node-click="handleNodeClick"
+        />
+      </div>
       <div class="nursing-manage__card-ctx-table">
         <h4 style="text-align: left">项目列表</h4>
         <div class="nursing-manage__card-top-btn">
           <div>
-            <el-button
-              type="primary"
-              size="small"
-              @click="openAddDialog"
-              :icon="Plus"
+            <el-button type="primary" size="small" @click="openAddDialog"
               >新增项目</el-button
             >
             <el-popconfirm
@@ -82,6 +104,7 @@
       v-model="updateDialogVisible"
       :title="judgeAddUpdate ? '新增项目' : '修改项目信息'"
       width="30%"
+      append-to-body
     >
       <el-form :model="nursingForm" label-width="80px">
         <el-form-item label="项目ID" v-if="!judgeAddUpdate">
@@ -94,6 +117,7 @@
           <el-select
             v-model="nursingForm.catagoryId"
             placeholder="请选择所属分类"
+            :popper-append-to-body="false"
           >
             <el-option
               v-for="(item, index) in categoryList"
@@ -119,6 +143,32 @@
         </span>
       </template>
     </el-dialog>
+    <el-dialog
+      v-model="categoryDialogVisible"
+      :title="judgeAddUpdate ? '新增护理类别' : '修改护理类别'"
+      width="30%"
+      append-to-body
+    >
+      <el-form :model="categoryForm" label-width="80px">
+        <el-form-item label="类别ID" v-if="!judgeAddUpdate">
+          <el-input v-model="categoryForm.id" />
+        </el-form-item>
+        <el-form-item label="类别名称">
+          <el-input v-model="categoryForm.name" />
+        </el-form-item>
+        <el-form-item label="类别描述">
+          <el-input v-model="categoryForm.info" type="textarea" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="categoryDialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="handleUpdateCategory"
+            >确定</el-button
+          >
+        </span>
+      </template>
+    </el-dialog>
   </el-card>
 </template>
 
@@ -138,20 +188,15 @@ onMounted(() => {
   initNuringList();
 });
 
-let categoryTreeList = ref([
-  {
-    name: "护理项目分类",
-    children: [],
-  },
-]);
+let categoryTreeList = ref([]);
 
 let categoryList = ref([]);
 
 let initCategoryList = () => {
   axios.get("/catagories").then((res) => {
     categoryList.value = [...res.data.data.recordList];
-    categoryTreeList.value[0].children = [...res.data.data.recordList];
-    categoryTreeList.value[0].children.unshift({
+    categoryTreeList.value = [...res.data.data.recordList];
+    categoryTreeList.value.unshift({
       id: 0,
       name: "全部",
     });
@@ -160,7 +205,7 @@ let initCategoryList = () => {
 };
 let initNuringList = () => {
   let url = "/nursingProjectsByCatagory";
-  if (curCategoryId.value === 0) {
+  if (curCategory.value.id === 0) {
     url = "/nursingProjects";
   } else {
     url = "/nursingProjectsByCatagory";
@@ -169,7 +214,7 @@ let initNuringList = () => {
     .get(url, {
       params: {
         ...page.value,
-        catagoryId: curCategoryId.value,
+        catagoryId: curCategory.value.id,
       },
     })
     .then((res) => {
@@ -206,10 +251,14 @@ let handleNursing = (list) => {
   });
 };
 
-let curCategoryId = ref(0);
+let curCategory = ref({
+  id: 0,
+  name: "",
+  info: "",
+});
 let handleNodeClick = (node) => {
   if (node.id !== undefined) {
-    curCategoryId.value = node.id;
+    curCategory.value = node;
     initNuringList();
   }
 };
@@ -251,6 +300,57 @@ let handleUpdateNursing = () => {
     initNuringList();
   });
 };
+
+let categoryDialogVisible = ref(false);
+let categoryForm = ref({
+  id: null,
+  name: "",
+  info: "",
+});
+
+let handleAddCategory = () => {
+  // 打开编辑弹窗,重置表单信息
+  categoryDialogVisible.value = true;
+  judgeAddUpdate.value = true;
+  categoryForm.value = {
+    name: "",
+    info: "",
+  };
+};
+
+let handleEditCategory = () => {
+  // 打开编辑弹窗，将原信息传入
+  categoryDialogVisible.value = true;
+  judgeAddUpdate.value = false;
+  console.log(curCategory.value);
+  categoryForm.value = { ...curCategory.value };
+};
+
+let handleUpdateCategory = () => {
+  // 点击弹窗确认事件触发
+  axios.post("/catagories", categoryForm.value).then((res) => {
+    ElMessage({
+      message: res.data.msg,
+      type: res.data.code === 1000 ? "success" : "error",
+    });
+    categoryDialogVisible.value = false;
+    initCategoryList();
+  });
+};
+
+let handleDelCategory = () => {
+  axios
+    .delete("/catagories", {
+      data: [curCategory.value.id],
+    })
+    .then((res) => {
+      ElMessage({
+        message: res.data.msg,
+        type: res.data.code === 1000 ? "success" : "error",
+      });
+      initCategoryList();
+    });
+};
 </script>
 
 <style scoped>
@@ -286,11 +386,18 @@ let handleUpdateNursing = () => {
 .nursing-manage__card-ctx {
   display: flex;
   height: 100%;
+  margin-top: 20px;
+}
+
+.nursing-manage__card-ctx-category {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .nursing-manage__card-ctx-tree {
   width: 200px;
-  margin-top: 20px;
 }
 
 .nursing-manage__card-ctx-table {

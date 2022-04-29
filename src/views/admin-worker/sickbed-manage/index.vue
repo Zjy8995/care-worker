@@ -14,7 +14,7 @@
         <div class="sickbed-manage__card-title">病床管理</div>
       </template>
       <template #name="scope">
-        <el-tag :type="nameTag(scope.row.name)">{{ scope.row.name }}</el-tag>
+        <el-tag type="warning">{{ scope.row.name }}</el-tag>
       </template>
       <template #olderName="scope">
         <el-tag v-if="scope.row.olderName">{{ scope.row.olderName }}</el-tag>
@@ -81,16 +81,6 @@ let bedList = ref([]);
 onMounted(() => {
   initbedList();
 });
-
-let nameTag = (name) => {
-  if (name === "A") {
-    return "";
-  } else if (name === "B") {
-    return "success";
-  } else {
-    return "warning";
-  }
-};
 
 let page = ref({
   current: 1,

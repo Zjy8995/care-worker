@@ -14,7 +14,11 @@
         <span style="font-size: 12px; vertical-align: top" v-else>展开</span>
       </div>
       <el-dropdown>
-        <el-avatar size="default" fit="fill" :src="getAvatar" />
+        <el-avatar
+          size="default"
+          fit="fill"
+          :src="store.state.userInfo.avatar"
+        />
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item @click="jumpSetting">个人中心</el-dropdown-item>
@@ -34,9 +38,6 @@ import { Fold, Expand } from "@element-plus/icons-vue";
 let store = useStore();
 let router = useRouter();
 
-let getAvatar = computed(() => {
-  return "https://images.weserv.nl/?url=" + store.state.userInfo.avatar;
-});
 let handleCollapse = () => {
   store.commit("changeCollapse");
 };

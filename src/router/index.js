@@ -65,6 +65,33 @@ const routes = [
         component: () => import("@/views/admin-worker/older-manage/index.vue"),
       },
       {
+        path: "detail-older",
+        component: () =>
+          import("@/views/admin-worker/older-manage/layout/index.vue"),
+        children: [
+          {
+            path: "",
+            component: () =>
+              import("@/views/admin-worker/older-manage/detail/index.vue"),
+          },
+          {
+            path: "health",
+            component: () =>
+              import("@/views/admin-worker/older-manage/detail/health.vue"),
+          },
+          {
+            path: "care",
+            component: () =>
+              import("@/views/admin-worker/older-manage/detail/care.vue"),
+          },
+          {
+            path: "nursing",
+            component: () =>
+              import("@/views/admin-worker/older-manage/detail/nursing.vue"),
+          },
+        ],
+      },
+      {
         path: "sickbed-manage",
         component: () =>
           import("@/views/admin-worker/sickbed-manage/index.vue"),

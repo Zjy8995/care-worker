@@ -47,34 +47,6 @@
               >
             </template>
           </el-popconfirm>
-          <!-- <el-popconfirm
-            title="确定批准吗？"
-            @confirm="handleLeaving(scope.row.id, '通过')"
-          >
-            <template #reference>
-              <el-button
-                type="success"
-                round
-                :disabled="scope.row.status !== '未审核'"
-                >批准</el-button
-              >
-            </template>
-          </el-popconfirm>
-
-          <el-popconfirm
-            title="确定驳回吗？"
-            @confirm="handleLeaving(scope.row.id, '未通过')"
-          >
-            <template #reference>
-              <el-button
-                type="info"
-                round
-                :disabled="scope.row.status !== '未审核'"
-                >驳回</el-button
-              >
-              >
-            </template>
-          </el-popconfirm> -->
         </template>
       </el-table-column>
     </el-table>
