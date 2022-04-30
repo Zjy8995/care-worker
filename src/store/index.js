@@ -4,12 +4,14 @@ export default createStore({
   state: {
     isCollapse: false,
     curOlderId: "",
+    curOlderName: "",
     curOlderAvatar: "",
     userInfo: {
       phone: "",
       name: "",
       role: "",
     },
+    nursingList: [],
   },
   getters: {},
   mutations: {
@@ -20,9 +22,15 @@ export default createStore({
     setCurOlderId(state, id) {
       state.curOlderId = id;
     },
+    setCurOlderName(state, name) {
+      state.curOlderName = name;
+    },
 
     setCurOlderAvatar(state, url) {
       state.curOlderAvatar = url;
+    },
+    setNursingList(state, list) {
+      state.nursingList = list;
     },
 
     setUserInfo(state, user) {

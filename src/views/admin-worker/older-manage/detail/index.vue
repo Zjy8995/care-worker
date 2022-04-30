@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-descriptions title="基础信息" :column="2" border>
-      <template #extra>
+      <template #extra v-if="!route.path.includes('care')">
         <el-button
           type="primary"
           size="small"
@@ -186,7 +186,7 @@
       direction="vertical"
       style="margin: 30px 0"
     >
-      <template #extra>
+      <template #extra v-if="!route.path.includes('care')">
         <el-button
           type="primary"
           size="small"
@@ -261,7 +261,7 @@
     </el-descriptions>
 
     <el-descriptions title="家属信息" :column="4" border direction="vertical">
-      <template #extra>
+      <template #extra v-if="!route.path.includes('care')">
         <el-button
           type="primary"
           size="small"
@@ -325,12 +325,12 @@
 
 <script setup>
 import { onMounted, ref, watch } from "vue";
-// import { useRouter, useRoute } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { ElMessage } from "element-plus";
 import axios from "axios";
-// let router = useRouter();
-// let route = useRoute();
+let router = useRouter();
+let route = useRoute();
 let store = useStore();
 onMounted(() => {
   if (store.state.curOlderId) {

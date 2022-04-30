@@ -12,6 +12,18 @@
           >
         </template>
       </el-popconfirm>
+      <div class="history-leave__card-search">
+        <el-input
+          v-model="keywords"
+          placeholder="输入护工名，请假理由进行搜索"
+          :prefix-icon="Search"
+          style="width: 220px; margin-right: 3px"
+          size="small"
+        />
+        <el-button type="primary" size="small" @click="initLeavingList"
+          >搜索</el-button
+        >
+      </div>
     </div>
     <el-table
       :data="leaveList"
@@ -97,7 +109,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { Edit, Delete } from "@element-plus/icons-vue";
+import { Edit, Delete, Search } from "@element-plus/icons-vue";
 import { dateFilterYM } from "@/utils/dateFilter";
 import axios from "axios";
 let leaveList = ref([]);
@@ -106,6 +118,7 @@ let page = ref({
   current: 1,
   size: 10,
 });
+let keywords = ref("");
 onMounted(() => {
   initLeavingList();
 });
@@ -113,7 +126,10 @@ onMounted(() => {
 let initLeavingList = () => {
   axios
     .get("/leavings", {
-      params: page.value,
+      params: {
+        ...page.value,
+        keywords: keywords.value,
+      },
     })
     .then((res) => {
       leaveCount.value = res.data.data.count;
@@ -187,6 +203,8 @@ let multiHandle = () => {
 }
 
 .admin-leave__card-top-btn {
+  display: flex;
+  justify-content: space-between;
   margin: 20px 0;
   text-align: left;
 }

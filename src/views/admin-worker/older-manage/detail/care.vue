@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-descriptions title="护工信息" :column="2" border>
-      <template #extra>
+      <template #extra v-if="!route.path.includes('care')">
         <el-button
           type="primary"
           size="small"

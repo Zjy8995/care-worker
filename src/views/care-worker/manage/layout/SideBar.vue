@@ -24,35 +24,35 @@
       router
     >
       <el-menu-item
-        index="/admin/detail-older"
+        index="/care/detail-older"
         class="menu-item"
-        :class="route.path == '/admin/detail-older' ? 'active-menu-item' : ''"
+        :class="route.path == '/care/detail-older' ? 'active-menu-item' : ''"
       >
         <span>基础信息</span>
       </el-menu-item>
       <el-menu-item
-        index="/admin/detail-older/health"
+        index="/care/detail-older/health"
         class="menu-item"
         :class="
-          route.path == '/admin/detail-older/health' ? 'active-menu-item' : ''
+          route.path == '/care/detail-older/health' ? 'active-menu-item' : ''
         "
       >
         <span>健康档案</span>
       </el-menu-item>
       <el-menu-item
-        index="/admin/detail-older/cargiver"
+        index="/care/detail-older/cargiver"
         class="menu-item"
         :class="
-          route.path == '/admin/detail-older/cargiver' ? 'active-menu-item' : ''
+          route.path == '/care/detail-older/cargiver' ? 'active-menu-item' : ''
         "
       >
         <span>护工信息</span>
       </el-menu-item>
       <el-menu-item
-        index="/admin/detail-older/nursing"
+        index="/care/detail-older/nursing"
         class="menu-item"
         :class="
-          route.path == '/admin/detail-older/nursing' ? 'active-menu-item' : ''
+          route.path == '/care/detail-older/nursing' ? 'active-menu-item' : ''
         "
       >
         <span>护理项目</span>

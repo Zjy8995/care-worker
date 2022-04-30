@@ -1,6 +1,21 @@
 <template>
   <el-card class="history-leave__card">
-    <div class="history-leave__card-title">历史请假</div>
+    <div>
+      <div class="history-leave__card-title">历史请假</div>
+      <div class="history-leave__card-search">
+        <el-input
+          v-model="keywords"
+          placeholder="输入护工名，请假理由进行搜索"
+          :prefix-icon="Search"
+          style="width: 220px; margin-right: 3px"
+          size="small"
+        />
+        <el-button type="primary" size="small" @click="initLeavingList"
+          >搜索</el-button
+        >
+      </div>
+    </div>
+
     <el-table :data="leaveList" stripe style="width: 100%; margin: 20px 0">
       <el-table-column prop="reason" label="请假原因" />
       <el-table-column prop="time" label="请假时间" />
@@ -64,15 +79,19 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { Edit, Delete } from "@element-plus/icons-vue";
+import { Edit, Delete, Search } from "@element-plus/icons-vue";
 import { dateFilterYM } from "@/utils/dateFilter";
+import { useStore } from "vuex";
 import axios from "axios";
+
+const store = useStore();
 let leaveList = ref([]);
 let leaveCount = ref(0);
 let page = ref({
   current: 1,
   size: 10,
 });
+let keywords = ref("");
 onMounted(() => {
   initLeavingList();
 });
@@ -80,7 +99,11 @@ onMounted(() => {
 let initLeavingList = () => {
   axios
     .get("/leavings", {
-      params: page.value,
+      params: {
+        ...page.value,
+        keywords: keywords.value,
+        caregiverId: store.state.userInfo.userId,
+      },
     })
     .then((res) => {
       leaveCount.value = res.data.data.count;
@@ -127,5 +150,10 @@ let handleCurrentChange = (val) => {
   height: 16px;
   border-left: 3px solid #0081ff;
   margin-right: 20px;
+}
+.history-leave__card-search {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 </style>

@@ -4,8 +4,8 @@
     <el-form :model="userForm" label-width="120px">
       <el-row>
         <el-col :span="8">
-          <el-form-item label="申请人ID">
-            <el-input v-model="userForm.userId" disabled />
+          <el-form-item label="申请人姓名">
+            <el-input v-model="userForm.name" disabled />
           </el-form-item>
         </el-col>
       </el-row>
@@ -48,9 +48,12 @@
 <script setup>
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
+import { useStore } from "vuex";
 import axios from "axios";
+
+let store = useStore();
 const userForm = ref({
-  userId: 1,
+  name: store.state.userInfo.name,
   reason: "",
   time: "",
   date: "",
@@ -72,7 +75,7 @@ let onSubmit = () => {
     })
     .then((res) => {
       ElMessage({
-        message: res.data.message,
+        message: "申请成功，可在历史请假中查看申请状态",
         type: res.data.code === 1000 ? "success" : "error",
       });
     });

@@ -8,7 +8,9 @@
       <el-table-column prop="createDate" label="创建日期" />
       <el-table-column label="操作">
         <template #default="scope">
-          <el-button type="primary" size="small">查看详情</el-button>
+          <el-button type="primary" size="small" @click="checkDetail(scope.row)"
+            >查看详情</el-button
+          >
           <el-button type="danger" size="small">删除</el-button>
         </template>
       </el-table-column>
@@ -28,8 +30,12 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { Edit, Delete } from "@element-plus/icons-vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import axios from "axios";
 
+let store = useStore();
+let router = useRouter();
 let olderCount = ref(0);
 let page = ref({
   current: 1,
@@ -62,6 +68,12 @@ let handleSizeChange = (val) => {
 let handleCurrentChange = (val) => {
   page.value.current = val;
   initOlderList();
+};
+
+let checkDetail = (row) => {
+  store.commit("setCurOlderId", row.id);
+  store.commit("setCurOlderName", row.name);
+  router.push("/care/detail-older");
 };
 </script>
 

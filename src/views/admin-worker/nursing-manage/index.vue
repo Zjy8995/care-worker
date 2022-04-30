@@ -200,7 +200,6 @@ let initCategoryList = () => {
       id: 0,
       name: "全部",
     });
-    console.log(categoryList.value);
   });
 };
 let initNuringList = () => {

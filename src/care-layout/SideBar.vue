@@ -20,26 +20,12 @@
       </el-icon>
       <span>管理老人</span>
     </el-menu-item>
-    <el-sub-menu index="/care/day-task">
-      <template #title>
-        <el-icon>
-          <List />
-        </el-icon>
-        <span>每日任务</span>
-      </template>
-      <el-menu-item index="/care/day-task-update">
-        <el-icon>
-          <List />
-        </el-icon>
-        <span>新增任务</span>
-      </el-menu-item>
-      <el-menu-item index="/care/day-task">
-        <el-icon>
-          <List />
-        </el-icon>
-        <span>查看任务</span>
-      </el-menu-item>
-    </el-sub-menu>
+    <el-menu-item index="/care/day-task">
+      <el-icon>
+        <List />
+      </el-icon>
+      <span>每日任务</span>
+    </el-menu-item>
     <el-sub-menu index="/care/leave">
       <template #title>
         <el-icon>

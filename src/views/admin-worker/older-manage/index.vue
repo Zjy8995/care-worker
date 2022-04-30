@@ -133,7 +133,9 @@ let openAddDialog = () => {};
 
 let jumpOlderInfo = (row) => {
   store.commit("setCurOlderId", row.id);
+  store.commit("setCurOlderName", row.name);
   window.localStorage.setItem("curOlderId", row.id);
+  window.localStorage.setItem("curOlderName", row.name);
   router.push("/admin/detail-older");
 };
 

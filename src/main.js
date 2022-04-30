@@ -1,11 +1,9 @@
 import { createApp } from "vue";
+import Vue from "vue";
 import ElementPlus from "element-plus";
 import App from "./App.vue";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 import "element-plus/dist/index.css";
-
-import VueCron from "vue-cron";
-
 import router from "./router";
 import store from "./store";
 import axios from "axios";
@@ -28,5 +26,5 @@ createApp(App)
   .use(ElementPlus, {
     locale: zhCn,
   })
-  .use(VueCron)
+  .component("v-chart", ECharts)
   .mount("#app");

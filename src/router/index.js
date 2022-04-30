@@ -23,11 +23,38 @@ const routes = [
         component: () => import("@/views/care-worker/manage/index.vue"),
       },
       {
+        path: "detail-older",
+        component: () => import("@/views/care-worker/manage/layout/index.vue"),
+        children: [
+          {
+            path: "",
+            component: () =>
+              import("@/views/admin-worker/older-manage/detail/index.vue"),
+          },
+          {
+            path: "health",
+            component: () =>
+              import("@/views/admin-worker/older-manage/detail/health.vue"),
+          },
+          {
+            path: "cargiver",
+            component: () =>
+              import("@/views/admin-worker/older-manage/detail/care.vue"),
+          },
+          {
+            path: "nursing",
+            component: () =>
+              import("@/views/admin-worker/older-manage/detail/nursing.vue"),
+          },
+        ],
+      },
+      {
         path: "day-task",
         component: () => import("@/views/care-worker/day-task/index.vue"),
       },
       {
         path: "day-task-update",
+        name: "careTaskUpdate",
         component: () => import("@/views/care-worker/day-task/update.vue"),
       },
       {
@@ -65,6 +92,11 @@ const routes = [
         component: () => import("@/views/admin-worker/older-manage/index.vue"),
       },
       {
+        path: "day-task-update",
+        name: "careAdminUpdate",
+        component: () => import("@/views/care-worker/day-task/update.vue"),
+      },
+      {
         path: "detail-older",
         component: () =>
           import("@/views/admin-worker/older-manage/layout/index.vue"),
@@ -80,7 +112,7 @@ const routes = [
               import("@/views/admin-worker/older-manage/detail/health.vue"),
           },
           {
-            path: "care",
+            path: "cargiver",
             component: () =>
               import("@/views/admin-worker/older-manage/detail/care.vue"),
           },
