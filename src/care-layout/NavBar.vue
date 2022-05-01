@@ -13,8 +13,13 @@
         >
         <span style="font-size: 12px; vertical-align: top" v-else>展开</span>
       </div>
-      <div>
-        <el-button>签到</el-button>
+      <div style="display: flex; align-items: center">
+        <el-button
+          type="success"
+          style="margin-right: 10px"
+          @click="handleClock"
+          >每日签到</el-button
+        >
         <el-dropdown>
           <el-avatar size="default" fit="fill" :src="store.state.avatar" />
           <template #dropdown>
@@ -33,10 +38,26 @@
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { Fold, Expand } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus";
+import axios from "axios";
 let store = useStore();
 let router = useRouter();
 let handleCollapse = () => {
   store.commit("changeCollapse");
+};
+let handleClock = () => {
+  axios
+    .get("/clock", {
+      params: {
+        caregiverId: store.state.userInfo.userId,
+      },
+    })
+    .then((res) => {
+      ElMessage({
+        message: res.data.data,
+        type: res.data.code === 1000 ? "success" : "error",
+      });
+    });
 };
 
 let jumpSetting = () => {
