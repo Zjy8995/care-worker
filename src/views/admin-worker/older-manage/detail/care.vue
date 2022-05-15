@@ -72,7 +72,7 @@
         <template #label>
           <div class="cell-item">出生日期：</div>
         </template>
-        {{ careInfo.birthday }}
+        {{ dateFilterYM(careInfo.birthday) }}
       </el-descriptions-item>
     </el-descriptions>
 
@@ -145,6 +145,7 @@ import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
 import { useStore } from "vuex";
+import { dateFilterYM } from "@/utils/dateFilter";
 import axios from "axios";
 let router = useRouter();
 let route = useRoute();

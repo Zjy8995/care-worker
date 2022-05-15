@@ -13,11 +13,11 @@
       <template #header>
         <div class="older-manage__card-title">老人管理</div>
       </template>
-      <template #createDate="scope">
-        {{ scope.row.createDate }}
+      <template #birthday="scope">
+        {{ dateFilterYM(scope.row.birthday) }}
       </template>
-      <template #updateDate="scope">
-        {{ scope.row.updateDate }}
+      <template #createDate="scope">
+        {{ dateFilterYM(scope.row.createDate) }}
       </template>
       <template #edit="scope">
         <el-button
@@ -53,6 +53,7 @@ import { Edit, Delete } from "@element-plus/icons-vue";
 import ITable from "@/components/common/table/ITable.vue";
 import axios from "axios";
 import { ElMessage } from "element-plus";
+import { dateFilterYM } from "@/utils/dateFilter";
 import router from "@/router";
 let roomList = ref([]);
 onMounted(() => {

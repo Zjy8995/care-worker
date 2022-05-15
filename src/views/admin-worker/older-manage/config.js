@@ -23,7 +23,7 @@ export const tableConfig = {
     },
     {
       prop: "createDate",
-      label: "创建时间",
+      label: "入院时间",
       minWidth: "180",
     },
   ],

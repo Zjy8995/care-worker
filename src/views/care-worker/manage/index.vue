@@ -4,14 +4,21 @@
     <el-table :data="olderList" style="width: 100%; margin-bottom: 20px">
       <el-table-column prop="name" label="姓名" width="180" />
       <el-table-column prop="sex" label="性别" width="180" />
-      <el-table-column prop="birthday" label="出生日期" />
-      <el-table-column prop="createDate" label="创建日期" />
+      <el-table-column prop="birthday" label="出生日期">
+        <template #default="scope">
+          {{ dateFilterYM(scope.row.birthday) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="createDate" label="入院日期">
+        <template #default="scope">
+          {{ dateFilterYM(scope.row.createDate) }}
+        </template>
+      </el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
           <el-button type="primary" size="small" @click="checkDetail(scope.row)"
             >查看详情</el-button
           >
-          <el-button type="danger" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -32,6 +39,8 @@ import { ref, onMounted } from "vue";
 import { Edit, Delete } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { dateFilterYM } from "@/utils/dateFilter";
+
 import axios from "axios";
 
 let store = useStore();
@@ -49,9 +58,10 @@ onMounted(() => {
 
 let initOlderList = () => {
   axios
-    .get("/olders", {
+    .get("/olderByCaregiverId", {
       params: {
         ...page.value,
+        caregiverId: store.state.userInfo.userId,
       },
     })
     .then((res) => {

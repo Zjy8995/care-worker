@@ -20,7 +20,7 @@
           <el-col :span="12">
             <el-card class="home__card-mini-ctx">
               <div class="home__card-icon-container">
-                <el-icon color="#40c9c6"><View /></el-icon>
+                <el-icon color="#40c9c6"><Document /></el-icon>
               </div>
               <div class="home__card-desc">
                 <div class="home__card-mini-title">总工作数量</div>
@@ -31,7 +31,7 @@
           <el-col :span="12">
             <el-card class="home__card-mini-ctx">
               <div class="home__card-icon-container">
-                <el-icon color="#40c9c6"><View /></el-icon>
+                <el-icon color="#40c9c6"><DocumentChecked /></el-icon>
               </div>
               <div class="home__card-desc">
                 <div class="home__card-mini-title">已完成工作数量</div>
@@ -44,7 +44,7 @@
           <el-col :span="12">
             <el-card class="home__card-mini-ctx">
               <div class="home__card-icon-container">
-                <el-icon color="#40c9c6"><View /></el-icon>
+                <el-icon color="#40c9c6"><DocumentDelete /></el-icon>
               </div>
               <div class="home__card-desc">
                 <div class="home__card-mini-title">未完成工作数量</div>
@@ -55,7 +55,7 @@
           <el-col :span="12">
             <el-card class="home__card-mini-ctx">
               <div class="home__card-icon-container">
-                <el-icon color="#40c9c6"><View /></el-icon>
+                <el-icon color="#40c9c6"><User /></el-icon>
               </div>
               <div class="home__card-desc">
                 <div class="home__card-mini-title">负责老人数量</div>
@@ -85,7 +85,12 @@ import axios from "axios";
 import { ref, onMounted, watch } from "vue";
 import { useStore } from "vuex";
 import * as echarts from "echarts";
-import { View } from "@element-plus/icons-vue";
+import {
+  User,
+  Document,
+  DocumentChecked,
+  DocumentDelete,
+} from "@element-plus/icons-vue";
 let store = useStore();
 onMounted(() => {
   initCareList();
@@ -117,7 +122,7 @@ let initCareList = () => {
           );
         });
         if (flag) {
-          data.push([item[0], "", item[1], "√"]);
+          data.push([item[0], "", item[1], "已签"]);
         } else {
           data.push([item[0], "", item[1], item[2]]);
         }

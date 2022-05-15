@@ -50,6 +50,7 @@ import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import { useStore } from "vuex";
 import axios from "axios";
+import router from "@/router";
 
 let store = useStore();
 const userForm = ref({
@@ -67,7 +68,7 @@ let handleDate = (date) => {
 let onSubmit = () => {
   axios
     .post("/leavings", {
-      userId: userForm.value.userId,
+      userId: store.state.userInfo.userId,
       reason: userForm.value.reason,
       time: userForm.value.time,
       begin: userForm.value.begin,
@@ -78,6 +79,7 @@ let onSubmit = () => {
         message: "申请成功，可在历史请假中查看申请状态",
         type: res.data.code === 1000 ? "success" : "error",
       });
+      router.push("/care/leave-history");
     });
 };
 </script>

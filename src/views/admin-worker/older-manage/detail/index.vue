@@ -328,6 +328,7 @@ import { onMounted, ref, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { ElMessage } from "element-plus";
+import { dateFilterYM } from "@/utils/dateFilter";
 import axios from "axios";
 let router = useRouter();
 let route = useRoute();
@@ -366,6 +367,7 @@ let initBaseInfo = (olderId) => {
     })
     .then((res) => {
       baseInfo.value = res.data.data;
+      baseInfo.value.birthday = dateFilterYM(baseInfo.value.birthday);
       store.commit("setCurOlderAvatar", baseInfo.value.avatar);
     });
 };

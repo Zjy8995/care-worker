@@ -35,7 +35,7 @@
         <div style="display: flex; align-items: center">
           <el-input
             v-model="keywords"
-            placeholder="输入护工名，护理项目名，分类名进行搜索"
+            placeholder="输入老人名，护理项目名，分类名进行搜索"
             clearable
             :prefix-icon="Search"
             size="small"
@@ -53,6 +53,12 @@
           >
         </div>
       </template>
+      <template #beginDate="scope">
+        {{ dateFilter(scope.row.beginDate) }}
+      </template>
+      <template #doneDate="scope">
+        {{ dateFilterYM(scope.row.doneDate) }}
+      </template>
       <template #status="scope">
         <el-tag v-if="scope.row.status == 0" type="warning">未完成</el-tag>
         <el-tag v-else type="success">已完成</el-tag>
@@ -65,7 +71,7 @@
           <template #reference>
             <el-button
               type="text"
-              size="small"
+              size="medium"
               :icon="Edit"
               circle
               :disabled="scope.row.status === 1 ? true : false"
@@ -79,19 +85,24 @@
       v-model="dialogVisible"
       title="任务设置"
       width="30%"
-      appen-to-body
+      append-to-body
     >
-      <el-form :model="addTaskForm" label-width="120px">
+      <el-form :model="addTaskForm" label-width="120px" append-to-body>
         <el-form-item label="开始时间">
           <el-date-picker
             v-model="addTaskForm.beginDate"
             type="datetime"
             prefix-icon="s"
             format="YYYY/MM/DD hh:mm:ss"
+            :teleported="false"
           />
         </el-form-item>
         <el-form-item label="老人姓名">
-          <el-select v-model="addTaskForm.olderId" placeholder="请选择老人">
+          <el-select
+            v-model="addTaskForm.olderId"
+            placeholder="请选择老人"
+            :popper-append-to-body="false"
+          >
             <el-option
               :label="item.name"
               :value="item.id"
@@ -102,7 +113,11 @@
         </el-form-item>
 
         <el-form-item label="项目名称">
-          <el-select v-model="addTaskForm.projectId" placeholder="请选择项目名">
+          <el-select
+            v-model="addTaskForm.projectId"
+            placeholder="请选择项目名"
+            :popper-append-to-body="false"
+          >
             <el-option
               :label="item.name"
               :value="item.id"
@@ -132,6 +147,7 @@ import ITable from "@/components/common/table/ITable.vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { ElMessage } from "element-plus";
+import { dateFilterYM, dateFilter } from "@/utils/dateFilter";
 import axios from "axios";
 const router = useRouter();
 const store = useStore();
@@ -218,13 +234,22 @@ let page = ref({
 });
 let taskCount = ref(0);
 let initTaskList = () => {
+  let params = {
+    ...page.value,
+    keywords: keywords.value,
+    caregiverId: store.state.userInfo.userId,
+    status: 0,
+  };
+  if (curSelect.value == "未完成") {
+    params.status = 0;
+  } else if (curSelect.value == "已完成") {
+    params.status = 1;
+  } else {
+    delete params.status;
+  }
   axios
     .get("/works", {
-      params: {
-        ...page.value,
-        keywords: keywords.value,
-        caregiverId: store.state.userInfo.userId,
-      },
+      params,
     })
     .then((res) => {
       taskCount.value = res.data.data.count;

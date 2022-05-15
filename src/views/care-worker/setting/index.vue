@@ -20,13 +20,19 @@
       <el-row>
         <el-col :span="7">
           <el-form-item label="旧密码">
-            <el-input v-model="userForm.oldPassword" /> </el-form-item
+            <el-input
+              v-model="userForm.oldPassword"
+              show-password
+            /> </el-form-item
         ></el-col>
       </el-row>
       <el-row>
         <el-col :span="7">
           <el-form-item label="新密码">
-            <el-input v-model="userForm.newPassword" /> </el-form-item
+            <el-input
+              v-model="userForm.newPassword"
+              show-password
+            /> </el-form-item
         ></el-col>
       </el-row>
       <el-form-item>

@@ -8,6 +8,9 @@
     text-color="#fff"
     router
   >
+    <el-menu-item style="padding: 0">
+      <el-image :src="require('../assets/logo1.png')" fit="scale" />
+    </el-menu-item>
     <el-menu-item index="/care">
       <el-icon>
         <HomeFilled />

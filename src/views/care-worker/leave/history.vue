@@ -5,7 +5,7 @@
       <div class="history-leave__card-search">
         <el-input
           v-model="keywords"
-          placeholder="输入护工名，请假理由进行搜索"
+          placeholder="输入请假理由进行搜索"
           :prefix-icon="Search"
           style="width: 220px; margin-right: 3px"
           size="small"

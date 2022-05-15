@@ -26,6 +26,7 @@ export const tableConfig = {
     {
       prop: "beginDate",
       label: "开始时间",
+      minWidth: "150",
     },
     {
       prop: "doneDate",

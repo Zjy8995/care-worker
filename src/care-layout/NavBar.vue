@@ -57,6 +57,7 @@ let handleClock = () => {
         message: res.data.data,
         type: res.data.code === 1000 ? "success" : "error",
       });
+      router.replace("/care");
     });
 };
 

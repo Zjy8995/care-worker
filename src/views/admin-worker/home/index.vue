@@ -11,7 +11,7 @@
       <div class="admin-home__card-mini">
         <el-card class="admin-home__card-mini-ctx">
           <div class="admin-home__card-icon-container">
-            <el-icon color="#40c9c6"><View /></el-icon>
+            <el-icon color="#40c9c6"><OfficeBuilding /></el-icon>
           </div>
           <div class="admin-home__card-desc">
             <div class="admin-home__card-mini-title">房间数量</div>
@@ -21,7 +21,7 @@
 
         <el-card class="admin-home__card-mini-ctx">
           <div class="admin-home__card-icon-container">
-            <el-icon color="#40c9c6"><View /></el-icon>
+            <el-icon color="#40c9c6"><UserFilled /></el-icon>
           </div>
           <div class="admin-home__card-desc">
             <div class="admin-home__card-mini-title">老人数量</div>
@@ -31,7 +31,7 @@
 
         <el-card class="admin-home__card-mini-ctx">
           <div class="admin-home__card-icon-container">
-            <el-icon color="#40c9c6"><View /></el-icon>
+            <el-icon color="#40c9c6"><UserFilled /></el-icon>
           </div>
           <div class="admin-home__card-desc">
             <div class="admin-home__card-mini-title">护工数量</div>
@@ -43,7 +43,7 @@
 
         <el-card class="admin-home__card-mini-ctx">
           <div class="admin-home__card-icon-container">
-            <el-icon color="#40c9c6"><View /></el-icon>
+            <el-icon color="#40c9c6"><Grid /></el-icon>
           </div>
           <div class="admin-home__card-desc">
             <div class="admin-home__card-mini-title">床位数量</div>
@@ -53,7 +53,7 @@
 
         <el-card class="admin-home__card-mini-ctx">
           <div class="admin-home__card-icon-container">
-            <el-icon color="#40c9c6"><View /></el-icon>
+            <el-icon color="#40c9c6"><CircleCheckFilled /></el-icon>
           </div>
           <div class="admin-home__card-desc">
             <div class="admin-home__card-mini-title">已居住床位数量</div>
@@ -65,7 +65,7 @@
 
         <el-card class="admin-home__card-mini-ctx">
           <div class="admin-home__card-icon-container">
-            <el-icon color="#40c9c6"><View /></el-icon>
+            <el-icon color="#40c9c6"><CircleCloseFilled /></el-icon>
           </div>
           <div class="admin-home__card-desc">
             <div class="admin-home__card-mini-title">空床位数量</div>
@@ -92,7 +92,13 @@ import { onMounted, ref, nextTick } from "vue";
 import * as echarts from "echarts";
 import blue from "./theme";
 import axios from "axios";
-import { View } from "@element-plus/icons-vue";
+import {
+  UserFilled,
+  OfficeBuilding,
+  Grid,
+  CircleCheckFilled,
+  CircleCloseFilled,
+} from "@element-plus/icons-vue";
 onMounted(() => {
   initGraphList();
   echarts.registerTheme("blue", blue);
